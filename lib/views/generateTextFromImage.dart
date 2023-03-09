@@ -6,7 +6,7 @@ import '../widgets/camera_widget.dart';
 class TextFromImageScreen extends StatelessWidget {
   final CameraController controller;
 
-  TextFromImageScreen({required this.controller});
+  const TextFromImageScreen({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,6 @@ class TextFromImageScreen extends StatelessWidget {
       ),
       body: Center(
         child: SizedBox(
-          height: double.infinity,
-          width: double.infinity,
           child: CameraWidget(
             controller: controller,
           ),

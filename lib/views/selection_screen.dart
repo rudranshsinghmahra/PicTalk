@@ -4,7 +4,9 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pic_talk_app/views/generateTextFromImage.dart';
 
 class SelectionScreen extends StatefulWidget {
-  const SelectionScreen({Key? key, required this.name, required this.cameraController}) : super(key: key);
+  const SelectionScreen(
+      {Key? key, required this.name, required this.cameraController})
+      : super(key: key);
   final String name;
   final CameraController cameraController;
 
@@ -69,9 +71,13 @@ class _SelectionScreenState extends State<SelectionScreen> {
       child: GestureDetector(
         onTap: () {
           Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => TextFromImageScreen(controller: widget.cameraController,)));
+            context,
+            MaterialPageRoute(
+              builder: (context) => TextFromImageScreen(
+                controller: widget.cameraController,
+              ),
+            ),
+          );
         },
         child: Container(
           decoration: BoxDecoration(
