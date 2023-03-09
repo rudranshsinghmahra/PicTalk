@@ -1,9 +1,12 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:pic_talk_app/views/generateTextFromImage.dart';
 
 class SelectionScreen extends StatefulWidget {
-  const SelectionScreen({Key? key, required this.name}) : super(key: key);
+  const SelectionScreen({Key? key, required this.name, required this.cameraController}) : super(key: key);
   final String name;
+  final CameraController cameraController;
 
   @override
   State<SelectionScreen> createState() => _SelectionScreenState();
@@ -49,34 +52,12 @@ class _SelectionScreenState extends State<SelectionScreen> {
               const SizedBox(
                 height: 20,
               ),
-              customCard("assets/demo.png", "Generate Caption from Image"),
+              customCard("assets/demo.png", "Generate Text from Images"),
               customCard("assets/demo.png", "Generate Caption from Image"),
               customCard("assets/demo.png", "Generate Caption from Image"),
               customCard("assets/demo.png", "Generate Caption from Image"),
             ],
           ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            left: 0,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 12.0, right: 12, bottom: 30),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xff828bf5),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15))),
-                onPressed: () async {},
-                child: const Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Text(
-                    "Continue",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-              ),
-            ),
-          )
         ],
       ),
     );
@@ -85,37 +66,45 @@ class _SelectionScreenState extends State<SelectionScreen> {
   Widget customCard(img, String title) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: const Color(0xff1b2c40),
-          border: Border.all(
-            color: Colors.white,
-            width: 1,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => TextFromImageScreen(controller: widget.cameraController,)));
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: const Color(0xff1b2c40),
+            border: Border.all(
+              color: Colors.white,
+              width: 1,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SizedBox(
-                height: 70,
-                width: 70,
-                child: Image.asset(
-                  img,
-                  fit: BoxFit.cover,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(
+                  height: 70,
+                  width: 70,
+                  child: Image.asset(
+                    img,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              )
-            ],
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

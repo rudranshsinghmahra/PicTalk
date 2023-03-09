@@ -1,16 +1,31 @@
+import 'dart:async';
+
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:pic_talk_app/views/splash_screen.dart';
 
-void main() {
-  runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  List<CameraDescription> cameras = await availableCameras();
+  CameraController controller =
+      CameraController(cameras[0], ResolutionPreset.high);
+  await controller.initialize();
+  runApp(MyApp(controller: controller));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final CameraController controller;
+
+  const MyApp({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: SplashScreen());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'PicTalk',
+      home: SplashScreen(
+        controller: controller,
+      ),
+    );
   }
 }

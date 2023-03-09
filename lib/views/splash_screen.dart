@@ -1,9 +1,11 @@
+import 'package:camera/src/camera_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pic_talk_app/views/name_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({Key? key, required this.controller}) : super(key: key);
+  final CameraController controller;
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -29,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     flutterTts.setCompletionHandler(() {
       // Speech has finished
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const NameScreen()));
+          MaterialPageRoute(builder: (context) => NameScreen(controller: widget.controller)));
     });
   }
 
