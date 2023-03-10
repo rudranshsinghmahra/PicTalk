@@ -18,7 +18,7 @@ class TextFromImageScreen extends StatelessWidget {
         centerTitle: true,
         title: const Text('Generate Text From Image(s)'),
       ),
-      body: Center(
+      body: SizedBox(
         child: SizedBox(
           child: CameraWidget(
             controller: controller,
