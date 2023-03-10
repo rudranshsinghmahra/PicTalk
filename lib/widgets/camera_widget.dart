@@ -38,12 +38,14 @@ class _CameraWidgetState extends State<CameraWidget> {
                   File(image.path),
                 ),
               );
-              setState(() {
-                shownText = recognizedText;
-                if (shownText != null) {
-                  flutterTts.speak(shownText.toString());
-                }
-              });
+              shownText = recognizedText;
+              if (shownText != null) {
+                await flutterTts.setLanguage("en-IN");
+                await flutterTts.setPitch(1.0);
+                await flutterTts.setSpeechRate(0.4);
+                flutterTts.speak(shownText.toString());
+              }
+              setState(() {});
             },
             child: const Icon(Icons.camera),
           ),
@@ -59,9 +61,13 @@ class _CameraWidgetState extends State<CameraWidget> {
             child: Align(
               alignment: Alignment.center,
               child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black45,
+                  borderRadius: BorderRadius.circular(30)
+                ),
                 height: MediaQuery.of(context).size.height * 0.5,
                 width: MediaQuery.of(context).size.width,
-                color: Colors.black45,
+
                 child: Center(
                   child: SingleChildScrollView(
                     child: Container(
