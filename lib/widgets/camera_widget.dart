@@ -6,18 +6,24 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:pic_talk_app/api/TextRecognitionApi.dart';
 
-class CameraWidget extends StatefulWidget {
+class CameraWidgetForTextToImage extends StatefulWidget {
   final CameraController controller;
 
-  const CameraWidget({super.key, required this.controller});
+  const CameraWidgetForTextToImage({super.key, required this.controller});
 
   @override
-  State<CameraWidget> createState() => _CameraWidgetState();
+  State<CameraWidgetForTextToImage> createState() => _CameraWidgetForTextToImageState();
 }
 
-class _CameraWidgetState extends State<CameraWidget> {
+class _CameraWidgetForTextToImageState extends State<CameraWidgetForTextToImage> {
   String? shownText;
   FlutterTts flutterTts = FlutterTts();
+
+  @override
+  void dispose() {
+    flutterTts.stop();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +48,6 @@ class _CameraWidgetState extends State<CameraWidget> {
               if (shownText != null) {
                 await flutterTts.setLanguage("en-IN");
                 await flutterTts.setPitch(1.0);
-                await flutterTts.setSpeechRate(0.4);
                 flutterTts.speak(shownText.toString());
               }
               setState(() {});

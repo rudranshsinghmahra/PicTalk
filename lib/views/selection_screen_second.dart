@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:pic_talk_app/views/generateTextFromImage.dart';
+import 'package:pic_talk_app/views/generateLabelsFromImage.dart';
 
-import 'generateLabelsFromImage.dart';
+import 'generateTextFromImage.dart';
 
-class SelectionScreen extends StatefulWidget {
-  const SelectionScreen({Key? key, required this.name}) : super(key: key);
-  final String name;
+class SelectionScreenSecond extends StatefulWidget {
+  const SelectionScreenSecond({Key? key}) : super(key: key);
 
   @override
-  State<SelectionScreen> createState() => _SelectionScreenState();
+  State<SelectionScreenSecond> createState() => _SelectionScreenSecondState();
 }
 
-class _SelectionScreenState extends State<SelectionScreen> {
+class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
   FlutterTts flutterTts = FlutterTts();
 
   @override
@@ -23,7 +22,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
 
   Future<void> welcomeWords() async {
     await flutterTts.speak(
-        "Hey! ${widget.name} Welcome to PicTalk. What do you want PicTalk to help you do?");
+        "Welcome back to PicTalk!. What do you want PicTalk to help you do?");
   }
 
   @override
@@ -35,13 +34,12 @@ class _SelectionScreenState extends State<SelectionScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Flexible(
+              const Flexible(
                 child: Padding(
-                  padding:
-                      const EdgeInsets.only(top: 100, right: 20.0, left: 20),
+                  padding: EdgeInsets.only(top: 100, right: 20.0, left: 20),
                   child: Text(
-                    "What do you want PicTalk to help you do, ${widget.name}?",
-                    style: const TextStyle(
+                    "Welcome back to PicTalk!",
+                    style: TextStyle(
                       color: Colors.white,
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -49,26 +47,41 @@ class _SelectionScreenState extends State<SelectionScreen> {
                   ),
                 ),
               ),
+              const Flexible(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10, right: 20.0, left: 20),
+                  child: Text(
+                    "What do you want PicTalk to help you do?",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
               const SizedBox(
-                height: 20,
+                height: 50,
               ),
               customCard(
                   "assets/demo.png",
                   "Generate Text from Images",
-                      () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TextFromImageScreen(),
-                    ),
-                  )),
+                  () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TextFromImageScreen(),
+                        ),
+                      )),
               customCard("assets/demo.png", "Generate Image Labels", () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const LabelFromImage(),
+                    builder: (context) => LabelFromImage(),
                   ),
                 );
               }),
+              // customCard("assets/demo.png", "Generate Caption from Image"),
+              // customCard("assets/demo.png", "Generate Caption from Image"),
             ],
           ),
         ],

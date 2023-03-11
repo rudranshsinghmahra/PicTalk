@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "551453190555",
+    "project_id": "pictalk-b2fc1",
+    "storage_bucket": "pictalk-b2fc1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551453190555:android:d7e7949187ccbdaf5d193e",
+        "android_client_info": {
+          "package_name": "com.rudransh.pic_talk_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "551453190555-5qtdl86ifout900mu2e040olrq8o2uek.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rudransh.pic_talk_app",
+            "certificate_hash": "f9653b4e59bfda4433d608ca932dfc7dc73a490a"
+          }
+        },
+        {
+          "client_id": "551453190555-0t8p5l1k570vovuiho9f3tqmndoujujt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu526UPuvcuUw2M0oXbvgbX_IxYAs1NQo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "551453190555-0t8p5l1k570vovuiho9f3tqmndoujujt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

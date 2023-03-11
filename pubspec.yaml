@@ -39,6 +39,13 @@ dependencies:
   camera: ^0.10.3+2
   image_picker: ^0.8.7
   google_mlkit_text_recognition: ^0.5.0
+  google_sign_in: ^6.0.2
+  google_fonts: ^4.0.3
+  cloud_firestore:
+  firebase_auth:
+  firebase_core:
+  google_mlkit_image_labeling: ^0.5.0
+  permission_handler: ^10.2.0
 
 dev_dependencies:
   flutter_test:

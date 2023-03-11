@@ -1,10 +1,8 @@
-import 'package:camera/src/camera_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:pic_talk_app/views/selection_screen.dart';
+import 'package:pic_talk_app/views/google_sign_in_screen.dart';
 
 class NameScreen extends StatefulWidget {
-  const NameScreen({Key? key, required this.controller}) : super(key: key);
-  final CameraController controller;
+  const NameScreen({Key? key}) : super(key: key);
 
   @override
   State<NameScreen> createState() => _NameScreenState();
@@ -83,10 +81,15 @@ class _NameScreenState extends State<NameScreen> {
                       null;
                     } else {
                       Navigator.of(context).pushReplacement(
+                        // MaterialPageRoute(
+                        //   builder: (context) => SelectionScreen(
+                        //     name: nameController.value.text.trim().toString(),
+                        //     cameraController: widget.controller,
+                        //   ),
+                        // ),
                         MaterialPageRoute(
-                          builder: (context) => SelectionScreen(
+                          builder: (context) => GoogleSignInScreen(
                             name: nameController.value.text.trim().toString(),
-                            cameraController: widget.controller,
                           ),
                         ),
                       );

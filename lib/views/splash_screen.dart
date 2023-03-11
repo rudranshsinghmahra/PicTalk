@@ -1,11 +1,9 @@
-import 'package:camera/src/camera_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pic_talk_app/views/name_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key, required this.controller}) : super(key: key);
-  final CameraController controller;
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -31,14 +29,14 @@ class _SplashScreenState extends State<SplashScreen> {
     flutterTts.setCompletionHandler(() {
       // Speech has finished
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => NameScreen(controller: widget.controller)));
+          MaterialPageRoute(builder: (context) => const NameScreen()));
     });
   }
 
   Future<void> speakTheText() async {
     await flutterTts.setLanguage("en-IN");
     await flutterTts.setPitch(1.0);
-    await flutterTts.setSpeechRate(0.4);
+    // await flutterTts.setSpeechRate(0.4);
     String text =
         "Welcome to PicTalk. My job is to generate text and speech for images. Reading is hard but listening is easy. PicTalk lets you generate text and speech for anything you normally use like PDFs, email, images, books,and more.";
     await flutterTts.speak(text);
