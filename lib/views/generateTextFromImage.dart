@@ -35,27 +35,28 @@ class _TextFromImageScreenState extends State<TextFromImageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xff14202e),
+      appBar: AppBar(
         backgroundColor: const Color(0xff14202e),
-        appBar: AppBar(
-          backgroundColor: const Color(0xff14202e),
-          elevation: 0,
-          centerTitle: true,
-          title: const Text('Generate Text From Image(s)'),
-        ),
-        body: FutureBuilder(
-          future: _initializeCamera(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            return SizedBox(
-              child: CameraWidgetForTextToImage(
-                controller: _controller,
-              ),
+        elevation: 0,
+        centerTitle: true,
+        title: const Text('Generate Text From Image(s)'),
+      ),
+      body: FutureBuilder(
+        future: _initializeCamera(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
             );
-          },
-        ));
+          }
+          return SizedBox(
+            child: CameraWidgetForTextToImage(
+              controller: _controller,
+            ),
+          );
+        },
+      ),
+    );
   }
 }

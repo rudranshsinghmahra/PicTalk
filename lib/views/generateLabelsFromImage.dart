@@ -67,12 +67,6 @@ class _LabelFromImageState extends State<LabelFromImage> {
   }
 
   @override
-  void dispose() {
-    _picker = null;
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff14202e),

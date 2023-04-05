@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:pic_talk_app/views/emotion_detection_screen.dart';
 import 'package:pic_talk_app/views/generateTextFromImage.dart';
 
 import 'generateLabelsFromImage.dart';
@@ -66,6 +67,14 @@ class _SelectionScreenState extends State<SelectionScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const LabelFromImage(),
+                  ),
+                );
+              }),
+              customCard("assets/demo.png", "Live Emotion from Images", () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const EmotionDetectionScreen(),
                   ),
                 );
               }),

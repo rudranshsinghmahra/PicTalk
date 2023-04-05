@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:pic_talk_app/views/emotion_detection_screen.dart';
 import 'package:pic_talk_app/views/generateLabelsFromImage.dart';
 
 import 'generateTextFromImage.dart';
@@ -80,8 +81,15 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
                   ),
                 );
               }),
-              // customCard("assets/demo.png", "Generate Caption from Image"),
-              // customCard("assets/demo.png", "Generate Caption from Image"),
+              customCard(
+                  "assets/demo.png",
+                  "Live Emotion from Images",
+                      () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EmotionDetectionScreen(),
+                    ),
+                  )),
             ],
           ),
         ],

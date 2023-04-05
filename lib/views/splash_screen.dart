@@ -87,7 +87,7 @@ class _SplashScreenState extends State<SplashScreen> {
             right: 0,
             child: SizedBox(
               height: 200,
-              width: MediaQuery.of(context).size.width,
+              width: double.infinity,
               child: Image.asset(
                 "assets/wave.png",
                 fit: BoxFit.fill,
