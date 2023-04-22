@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pic_talk_app/views/emotion_detection_screen.dart';
 import 'package:pic_talk_app/views/generateTextFromImage.dart';
+import 'package:pic_talk_app/views/splash_screen.dart';
 
 import '../main.dart';
 import 'ObjectDetectionScreen.dart';
@@ -19,6 +21,7 @@ class SelectionScreen extends StatefulWidget {
 
 class _SelectionScreenState extends State<SelectionScreen> {
   FlutterTts flutterTts = FlutterTts();
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -35,11 +38,50 @@ class _SelectionScreenState extends State<SelectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff14202e),
+      appBar: AppBar(
+        backgroundColor: const Color(0xff14202e),
+        elevation: 0,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text("${user?.displayName}"),
+              accountEmail: Text("${user?.email}"),
+              currentAccountPicture: ClipOval(
+                child: Image.network(
+                  "${user?.photoURL}",
+                ),
+              ),
+              decoration: BoxDecoration(
+                color: Color(0xff14202e),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                "Logout",
+                style: TextStyle(fontSize: 20),
+              ),
+              trailing: Icon(Icons.logout),
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SplashScreen(),
+                  ),
+                      (route) => false,
+                );
+              },
+            )
+          ],
+        ),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 100, right: 20.0, left: 20),
+            padding: EdgeInsets.only(top: 10, right: 20.0, left: 20),
           ),
           Padding(
             padding: EdgeInsets.only(top: 10, right: 20.0, left: 20),
@@ -65,18 +107,19 @@ class _SelectionScreenState extends State<SelectionScreen> {
               children: [
                 customCard(
                   "assets/demo.png",
-                  "Generate Text from Images",
-                  () => Navigator.push(
+                  "Extract Text from Images",
+                      () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => TextFromImageScreen(),
                     ),
                   ),
+                  false,
                 ),
                 customCard(
                   "assets/demo.png",
                   "Generate Image Labels",
-                  () {
+                      () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -84,46 +127,87 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       ),
                     );
                   },
+                  false,
                 ),
                 customCard(
                   "assets/demo.png",
                   "Live Emotion from Images",
-                  () => Navigator.push(
+                      () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => EmotionDetectionScreen(),
                     ),
                   ),
+                  false,
                 ),
                 customCard(
                   "assets/demo.png",
                   "QR/Barcode Scanning",
-                  () => Navigator.push(
+                      () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => QRScanPage(),
                     ),
                   ),
+                  false,
                 ),
                 customCard(
                   "assets/demo.png",
                   "Object Detection Screen",
-                  () => Navigator.push(
+                      () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ObjectDetectionScreen(cameras!),
                     ),
                   ),
+                  false,
                 ),
                 customCard(
                   "assets/demo.png",
                   "Body Parts Detection",
-                  () => Navigator.push(
+                      () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => BodyPartsDetectionScreen(cameras!),
                     ),
                   ),
+                  false,
+                ),
+                customCard(
+                  "assets/demo_2.png", "Face Detection", () {}, true,
+                  // () => Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => BodyPartsDetectionScreen(cameras!),
+                  //   ),
+                  // ),
+                ),
+                customCard(
+                    "assets/demo_2.png", "Language Identification", () {}, true
+                  // () => Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => BodyPartsDetectionScreen(cameras!),
+                  //   ),
+                  // ),
+                ),
+                customCard(
+                    "assets/demo_2.png", "Selfie Segmentation", () {}, true
+                  // () => Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => BodyPartsDetectionScreen(cameras!),
+                  //   ),
+                  // ),
+                ),
+                customCard(
+                    "assets/demo_2.png", "On-Device Translation", () {}, true
+                  // () => Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => BodyPartsDetectionScreen(cameras!),
+                  //   ),
+                  // ),
                 ),
               ],
             ),
@@ -133,21 +217,25 @@ class _SelectionScreenState extends State<SelectionScreen> {
     );
   }
 
-  Widget customCard(img, String title, Function()? onTap) {
+  Widget customCard(img, String title, Function()? onTap, bool isDisabled) {
     return GestureDetector(
       onTap: onTap,
       child: Neumorphic(
         style: NeumorphicStyle(
           intensity: 1,
-          depth: 6,
+          depth: isDisabled ? 2.5 : 6,
           border: NeumorphicBorder(color: Colors.white54),
-          shadowLightColor: Color.fromARGB(
+          shadowLightColor: isDisabled
+              ? Colors.grey.shade500
+              : Color.fromARGB(
             255,
             40,
             46,
             80,
           ),
-          shadowDarkColor: Color.fromARGB(
+          shadowDarkColor: isDisabled
+              ? Colors.grey
+              : Color.fromARGB(
             255,
             16,
             18,
@@ -160,7 +248,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: const Color(0xff1b2c40),
+            color: isDisabled ? Colors.grey.shade400 : Color(0xff1b2c40),
           ),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
@@ -175,14 +263,17 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      color: isDisabled ? Colors.grey.shade600 : Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ],
             ),

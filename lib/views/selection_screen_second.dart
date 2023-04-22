@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pic_talk_app/main.dart';
 import 'package:pic_talk_app/views/emotion_detection_screen.dart';
 import 'package:pic_talk_app/views/generateLabelsFromImage.dart';
+import 'package:pic_talk_app/views/splash_screen.dart';
 
 import 'ObjectDetectionScreen.dart';
 import 'barcode_scanner_screen.dart';
@@ -18,6 +20,7 @@ class SelectionScreenSecond extends StatefulWidget {
 
 class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
   FlutterTts flutterTts = FlutterTts();
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -46,11 +49,15 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff14202e),
+      appBar: AppBar(
+        backgroundColor: const Color(0xff14202e),
+        elevation: 0,
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 50, right: 20.0, left: 20),
+            padding: EdgeInsets.only(top: 10, right: 20.0, left: 20),
             child: Text(
               "Welcome back to PicTalk!",
               style: TextStyle(
@@ -91,6 +98,7 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
                       builder: (context) => TextFromImageScreen(),
                     ),
                   ),
+                  false,
                 ),
                 customCard(
                   "assets/demo.png",
@@ -103,6 +111,7 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
                       ),
                     );
                   },
+                  false,
                 ),
                 customCard(
                   "assets/demo.png",
@@ -113,6 +122,7 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
                       builder: (context) => EmotionDetectionScreen(),
                     ),
                   ),
+                  false,
                 ),
                 customCard(
                   "assets/demo.png",
@@ -123,6 +133,7 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
                       builder: (context) => QRScanPage(),
                     ),
                   ),
+                  false,
                 ),
                 customCard(
                   "assets/demo.png",
@@ -133,6 +144,7 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
                       builder: (context) => ObjectDetectionScreen(cameras!),
                     ),
                   ),
+                  false,
                 ),
                 customCard(
                   "assets/demo.png",
@@ -143,75 +155,111 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
                       builder: (context) => BodyPartsDetectionScreen(cameras!),
                     ),
                   ),
+                  false,
                 ),
                 customCard(
-                  "assets/demo.png",
-                  "Body Parts Detection",
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BodyPartsDetectionScreen(cameras!),
-                    ),
-                  ),
+                  "assets/demo_2.png", "Face Detection", () {}, true,
+                  // () => Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => BodyPartsDetectionScreen(cameras!),
+                  //   ),
+                  // ),
                 ),
                 customCard(
-                  "assets/demo.png",
-                  "Body Parts Detection",
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BodyPartsDetectionScreen(cameras!),
+                    "assets/demo_2.png", "Language Identification", () {}, true
+                    // () => Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => BodyPartsDetectionScreen(cameras!),
+                    //   ),
+                    // ),
                     ),
-                  ),
-                ),
                 customCard(
-                  "assets/demo.png",
-                  "Body Parts Detection",
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BodyPartsDetectionScreen(cameras!),
+                    "assets/demo_2.png", "Selfie Segmentation", () {}, true
+                    // () => Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => BodyPartsDetectionScreen(cameras!),
+                    //   ),
+                    // ),
                     ),
-                  ),
-                ),
                 customCard(
-                  "assets/demo.png",
-                  "Body Parts Detection",
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BodyPartsDetectionScreen(cameras!),
+                    "assets/demo_2.png", "On-Device Translation", () {}, true
+                    // () => Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => BodyPartsDetectionScreen(cameras!),
+                    //   ),
+                    // ),
                     ),
-                  ),
-                ),
               ],
             ),
           )
         ],
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text("${user?.displayName}"),
+              accountEmail: Text("${user?.email}"),
+              currentAccountPicture: ClipOval(
+                child: Image.network(
+                  "${user?.photoURL}",
+                ),
+              ),
+              decoration: BoxDecoration(
+                color: Color(0xff14202e),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                "Logout",
+                style: TextStyle(fontSize: 20),
+              ),
+              trailing: Icon(Icons.logout),
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SplashScreen(),
+                  ),
+                  (route) => false,
+                );
+              },
+            )
+          ],
+        ),
+      ),
     );
   }
 
-  Widget customCard(img, String title, Function()? onTap) {
+  Widget customCard(img, String title, Function()? onTap, bool isDisabled) {
     return GestureDetector(
       onTap: onTap,
       child: Neumorphic(
         style: NeumorphicStyle(
           intensity: 1,
-          depth: 6,
+          depth: isDisabled ? 2.5 : 6,
           border: NeumorphicBorder(color: Colors.white54),
-          shadowLightColor: Color.fromARGB(
-            255,
-            40,
-            46,
-            80,
-          ),
-          shadowDarkColor: Color.fromARGB(
-            255,
-            16,
-            18,
-            33,
-          ),
+          shadowLightColor: isDisabled
+              ? Colors.grey.shade500
+              : Color.fromARGB(
+                  255,
+                  40,
+                  46,
+                  80,
+                ),
+          shadowDarkColor: isDisabled
+              ? Colors.grey
+              : Color.fromARGB(
+                  255,
+                  16,
+                  18,
+                  33,
+                ),
           boxShape: NeumorphicBoxShape.roundRect(
             BorderRadius.circular(20),
           ),
@@ -219,7 +267,7 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: const Color(0xff1b2c40),
+            color: isDisabled ? Colors.grey.shade400 : Color(0xff1b2c40),
           ),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
@@ -234,14 +282,17 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      color: isDisabled ? Colors.grey.shade600 : Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ],
             ),
