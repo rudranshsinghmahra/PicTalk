@@ -117,11 +117,12 @@ class _QRScanPageState extends State<QRScanPage> {
         key: qrKey,
         onQRViewCreated: onQRViewCreated,
         overlay: QrScannerOverlayShape(
-            borderWidth: 15,
-            cutOutSize: MediaQuery.of(context).size.width * 0.8,
-            borderLength: 20,
-            borderRadius: 10,
-            borderColor: Colors.red),
+          borderWidth: 15,
+          cutOutSize: MediaQuery.of(context).size.width * 0.8,
+          borderLength: 20,
+          borderRadius: 10,
+          borderColor: Colors.red,
+        ),
       );
 
   void onQRViewCreated(QRViewController controller) {

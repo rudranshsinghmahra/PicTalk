@@ -1,9 +1,12 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:pic_talk_app/main.dart';
 import 'package:pic_talk_app/views/emotion_detection_screen.dart';
 import 'package:pic_talk_app/views/generateLabelsFromImage.dart';
 
+import 'ObjectDetectionScreen.dart';
 import 'barcode_scanner_screen.dart';
+import 'body_parts_detection_screen.dart';
 import 'generateTextFromImage.dart';
 
 class SelectionScreenSecond extends StatefulWidget {
@@ -23,18 +26,18 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
   }
 
   Future<void> welcomeWords() async {
-    // List<dynamic> voices = await flutterTts.getVoices;
-    // for (dynamic voice in voices) {
-    //   print("Voice name: ${voice['name']}");
-    //   print("Voice identifier: ${voice['voiceId']}");
-    //   print("Language: ${voice['language']}");
-    //   print("Country: ${voice['country']}");
-    //   print("");
-    // }
-    // await flutterTts.setVoice({
-    //   'name': voices[0]['name'],
-    //   'locale': voices[0]['locale'],
-    // });
+    List<dynamic> voices = await flutterTts.getVoices;
+    for (dynamic voice in voices) {
+      print("Voice name: ${voice['name']}");
+      print("Voice identifier: ${voice['voiceId']}");
+      print("Language: ${voice['language']}");
+      print("Country: ${voice['country']}");
+      print("");
+    }
+    await flutterTts.setVoice({
+      'name': voices[5]['name'],
+      'locale': voices[5]['locale'],
+    });
     await flutterTts.speak(
         "Welcome back to PicTalk!. What do you want PicTalk to help you do?");
   }
@@ -47,7 +50,7 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 100, right: 20.0, left: 20),
+            padding: EdgeInsets.only(top: 50, right: 20.0, left: 20),
             child: Text(
               "Welcome back to PicTalk!",
               style: TextStyle(
@@ -63,7 +66,7 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
               "What do you want PicTalk to help you do?",
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -81,7 +84,7 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
               children: [
                 customCard(
                   "assets/demo.png",
-                  "Generate Text from Images",
+                  "Extract Text from Images",
                   () => Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -123,21 +126,61 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
                 ),
                 customCard(
                   "assets/demo.png",
-                  "Live Emotion from Images",
+                  "Object Detection Screen",
                   () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EmotionDetectionScreen(),
+                      builder: (context) => ObjectDetectionScreen(cameras!),
                     ),
                   ),
                 ),
                 customCard(
                   "assets/demo.png",
-                  "Live Emotion from Images",
+                  "Body Parts Detection",
                   () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EmotionDetectionScreen(),
+                      builder: (context) => BodyPartsDetectionScreen(cameras!),
+                    ),
+                  ),
+                ),
+                customCard(
+                  "assets/demo.png",
+                  "Body Parts Detection",
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BodyPartsDetectionScreen(cameras!),
+                    ),
+                  ),
+                ),
+                customCard(
+                  "assets/demo.png",
+                  "Body Parts Detection",
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BodyPartsDetectionScreen(cameras!),
+                    ),
+                  ),
+                ),
+                customCard(
+                  "assets/demo.png",
+                  "Body Parts Detection",
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BodyPartsDetectionScreen(cameras!),
+                    ),
+                  ),
+                ),
+                customCard(
+                  "assets/demo.png",
+                  "Body Parts Detection",
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BodyPartsDetectionScreen(cameras!),
                     ),
                   ),
                 ),

@@ -34,9 +34,18 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> speakTheText() async {
-    await flutterTts.setLanguage("en-IN");
-    await flutterTts.setPitch(1.0);
-    // await flutterTts.setSpeechRate(0.4);
+    List<dynamic> voices = await flutterTts.getVoices;
+    for (dynamic voice in voices) {
+      print("Voice name: ${voice['name']}");
+      print("Voice identifier: ${voice['voiceId']}");
+      print("Language: ${voice['language']}");
+      print("Country: ${voice['country']}");
+      print("");
+    }
+    await flutterTts.setVoice({
+      'name': voices[5]['name'],
+      'locale': voices[5]['locale'],
+    });
     String text =
         "Welcome to PicTalk. My job is to generate text and speech for images. Reading is hard but listening is easy. PicTalk lets you generate text and speech for anything you normally use like PDFs, email, images, books,and more.";
     await flutterTts.speak(text);

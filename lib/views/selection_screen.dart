@@ -3,7 +3,10 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pic_talk_app/views/emotion_detection_screen.dart';
 import 'package:pic_talk_app/views/generateTextFromImage.dart';
 
+import '../main.dart';
+import 'ObjectDetectionScreen.dart';
 import 'barcode_scanner_screen.dart';
+import 'body_parts_detection_screen.dart';
 import 'generateLabelsFromImage.dart';
 
 class SelectionScreen extends StatefulWidget {
@@ -104,21 +107,21 @@ class _SelectionScreenState extends State<SelectionScreen> {
                 ),
                 customCard(
                   "assets/demo.png",
-                  "Live Emotion from Images",
+                  "Object Detection Screen",
                   () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EmotionDetectionScreen(),
+                      builder: (context) => ObjectDetectionScreen(cameras!),
                     ),
                   ),
                 ),
                 customCard(
                   "assets/demo.png",
-                  "Live Emotion from Images",
+                  "Body Parts Detection",
                   () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EmotionDetectionScreen(),
+                      builder: (context) => BodyPartsDetectionScreen(cameras!),
                     ),
                   ),
                 ),
