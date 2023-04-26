@@ -46,8 +46,18 @@ class _CameraWidgetForTextToImageState extends State<CameraWidgetForTextToImage>
               );
               shownText = recognizedText;
               if (shownText != null) {
-                await flutterTts.setLanguage("en-IN");
-                await flutterTts.setPitch(1.0);
+                List<dynamic> voices = await flutterTts.getVoices;
+                for (dynamic voice in voices) {
+                  print("Voice name: ${voice['name']}");
+                  print("Voice identifier: ${voice['voiceId']}");
+                  print("Language: ${voice['language']}");
+                  print("Country: ${voice['country']}");
+                  print("");
+                }
+                await flutterTts.setVoice({
+                  'name': voices[5]['name'],
+                  'locale': voices[5]['locale'],
+                });
                 flutterTts.speak(shownText.toString());
               }
               setState(() {});

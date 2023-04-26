@@ -46,6 +46,18 @@ class _LabelFromImageState extends State<LabelFromImage> {
     StringBuffer stringBuffer = StringBuffer();
     for (ImageLabel imageLabel in labels) {
       String labelText = imageLabel.label;
+      List<dynamic> voices = await flutterTts.getVoices;
+      for (dynamic voice in voices) {
+        print("Voice name: ${voice['name']}");
+        print("Voice identifier: ${voice['voiceId']}");
+        print("Language: ${voice['language']}");
+        print("Country: ${voice['country']}");
+        print("");
+      }
+      await flutterTts.setVoice({
+        'name': voices[5]['name'],
+        'locale': voices[5]['locale'],
+      });
       flutterTts.speak(labelText);
       await Future.delayed(const Duration(seconds: 1));
       double confidence = imageLabel.confidence;

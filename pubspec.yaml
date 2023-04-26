@@ -36,28 +36,29 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.5
   flutter_tts: ^3.6.3
-  camera: ^0.10.3+2
-  image_picker: ^0.8.7+1
-  google_mlkit_text_recognition: ^0.5.0
-  google_sign_in: ^6.0.2
+  camera: ^0.10.4
+  image_picker: ^0.8.7+4
+  google_mlkit_text_recognition: ^0.6.0
+  google_sign_in: ^6.1.0
   google_fonts: ^4.0.3
-  cloud_firestore:
-  firebase_auth:
-  firebase_core:
-  google_mlkit_image_labeling: ^0.5.0
+  cloud_firestore: ^4.5.2
+  firebase_auth: ^4.4.2
+  firebase_core: ^2.10.0
+  google_mlkit_image_labeling: ^0.6.0
   permission_handler: ^10.2.0
-  firebase_core_web: ^2.2.2
+  firebase_core_web: ^2.3.0
   tflite: ^1.1.2
   progresso: ^0.3.0
   flutter_neumorphic: ^3.2.0
-  google_mlkit_barcode_scanning: ^0.5.0
-  google_ml_kit: ^0.13.0
+  google_mlkit_barcode_scanning: ^0.6.0
+  google_ml_kit: ^0.14.0
   qr_code_scanner: ^1.0.1
+  firebase_ml_vision: ^0.9.10
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.12.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter_icons:
   android: true

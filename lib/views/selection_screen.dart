@@ -3,12 +3,14 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pic_talk_app/views/emotion_detection_screen.dart';
 import 'package:pic_talk_app/views/generateTextFromImage.dart';
+import 'package:pic_talk_app/views/sign_language_detection.dart';
 import 'package:pic_talk_app/views/splash_screen.dart';
 
 import '../main.dart';
 import 'ObjectDetectionScreen.dart';
 import 'barcode_scanner_screen.dart';
 import 'body_parts_detection_screen.dart';
+import 'face_detector_screen.dart';
 import 'generateLabelsFromImage.dart';
 
 class SelectionScreen extends StatefulWidget {
@@ -30,6 +32,18 @@ class _SelectionScreenState extends State<SelectionScreen> {
   }
 
   Future<void> welcomeWords() async {
+    List<dynamic> voices = await flutterTts.getVoices;
+    for (dynamic voice in voices) {
+      print("Voice name: ${voice['name']}");
+      print("Voice identifier: ${voice['voiceId']}");
+      print("Language: ${voice['language']}");
+      print("Country: ${voice['country']}");
+      print("");
+    }
+    await flutterTts.setVoice({
+      'name': voices[5]['name'],
+      'locale': voices[5]['locale'],
+    });
     await flutterTts.speak(
         "Hey! ${widget.name} Welcome to PicTalk. What do you want PicTalk to help you do?");
   }
@@ -70,7 +84,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                   MaterialPageRoute(
                     builder: (context) => SplashScreen(),
                   ),
-                      (route) => false,
+                  (route) => false,
                 );
               },
             )
@@ -108,7 +122,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                 customCard(
                   "assets/demo.png",
                   "Extract Text from Images",
-                      () => Navigator.push(
+                  () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => TextFromImageScreen(),
@@ -119,7 +133,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                 customCard(
                   "assets/demo.png",
                   "Generate Image Labels",
-                      () {
+                  () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -132,7 +146,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                 customCard(
                   "assets/demo.png",
                   "Live Emotion from Images",
-                      () => Navigator.push(
+                  () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => EmotionDetectionScreen(),
@@ -143,7 +157,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                 customCard(
                   "assets/demo.png",
                   "QR/Barcode Scanning",
-                      () => Navigator.push(
+                  () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => QRScanPage(),
@@ -154,7 +168,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                 customCard(
                   "assets/demo.png",
                   "Object Detection Screen",
-                      () => Navigator.push(
+                  () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ObjectDetectionScreen(cameras!),
@@ -165,7 +179,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                 customCard(
                   "assets/demo.png",
                   "Body Parts Detection",
-                      () => Navigator.push(
+                  () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => BodyPartsDetectionScreen(cameras!),
@@ -174,7 +188,17 @@ class _SelectionScreenState extends State<SelectionScreen> {
                   false,
                 ),
                 customCard(
-                  "assets/demo_2.png", "Face Detection", () {}, true,
+                  "assets/demo.png",
+                  "Face Detection",
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FaceDetectionScreen(),
+                      ),
+                    );
+                  },
+                  false,
                   // () => Navigator.push(
                   //   context,
                   //   MaterialPageRoute(
@@ -182,33 +206,40 @@ class _SelectionScreenState extends State<SelectionScreen> {
                   //   ),
                   // ),
                 ),
-                customCard(
-                    "assets/demo_2.png", "Language Identification", () {}, true
-                  // () => Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => BodyPartsDetectionScreen(cameras!),
-                  //   ),
-                  // ),
-                ),
+                customCard("assets/demo.png", "Sign Language Identification",
+                    () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignLanguageDetection(),
+                    ),
+                  );
+                }, false
+                    // () => Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => BodyPartsDetectionScreen(cameras!),
+                    //   ),
+                    // ),
+                    ),
                 customCard(
                     "assets/demo_2.png", "Selfie Segmentation", () {}, true
-                  // () => Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => BodyPartsDetectionScreen(cameras!),
-                  //   ),
-                  // ),
-                ),
+                    // () => Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => BodyPartsDetectionScreen(cameras!),
+                    //   ),
+                    // ),
+                    ),
                 customCard(
                     "assets/demo_2.png", "On-Device Translation", () {}, true
-                  // () => Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => BodyPartsDetectionScreen(cameras!),
-                  //   ),
-                  // ),
-                ),
+                    // () => Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => BodyPartsDetectionScreen(cameras!),
+                    //   ),
+                    // ),
+                    ),
               ],
             ),
           )
@@ -228,19 +259,19 @@ class _SelectionScreenState extends State<SelectionScreen> {
           shadowLightColor: isDisabled
               ? Colors.grey.shade500
               : Color.fromARGB(
-            255,
-            40,
-            46,
-            80,
-          ),
+                  255,
+                  40,
+                  46,
+                  80,
+                ),
           shadowDarkColor: isDisabled
               ? Colors.grey
               : Color.fromARGB(
-            255,
-            16,
-            18,
-            33,
-          ),
+                  255,
+                  16,
+                  18,
+                  33,
+                ),
           boxShape: NeumorphicBoxShape.roundRect(
             BorderRadius.circular(20),
           ),

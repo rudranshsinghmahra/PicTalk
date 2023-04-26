@@ -3,7 +3,9 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pic_talk_app/main.dart';
 import 'package:pic_talk_app/views/emotion_detection_screen.dart';
+import 'package:pic_talk_app/views/face_detector_screen.dart';
 import 'package:pic_talk_app/views/generateLabelsFromImage.dart';
+import 'package:pic_talk_app/views/sign_language_detection.dart';
 import 'package:pic_talk_app/views/splash_screen.dart';
 
 import 'ObjectDetectionScreen.dart';
@@ -158,7 +160,17 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
                   false,
                 ),
                 customCard(
-                  "assets/demo_2.png", "Face Detection", () {}, true,
+                  "assets/demo.png",
+                  "Face Detection",
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FaceDetectionScreen(),
+                      ),
+                    );
+                  },
+                  false,
                   // () => Navigator.push(
                   //   context,
                   //   MaterialPageRoute(
@@ -166,8 +178,15 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
                   //   ),
                   // ),
                 ),
-                customCard(
-                    "assets/demo_2.png", "Language Identification", () {}, true
+                customCard("assets/demo.png", "Sign Language Identification",
+                    () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignLanguageDetection(),
+                    ),
+                  );
+                }, false
                     // () => Navigator.push(
                     //   context,
                     //   MaterialPageRoute(
