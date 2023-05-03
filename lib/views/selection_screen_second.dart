@@ -171,12 +171,7 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
                     );
                   },
                   false,
-                  // () => Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => BodyPartsDetectionScreen(cameras!),
-                  //   ),
-                  // ),
+
                 ),
                 customCard("assets/demo.png", "Sign Language Identification",
                     () {
@@ -187,31 +182,9 @@ class _SelectionScreenSecondState extends State<SelectionScreenSecond> {
                     ),
                   );
                 }, false
-                    // () => Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => BodyPartsDetectionScreen(cameras!),
-                    //   ),
-                    // ),
+
                     ),
-                customCard(
-                    "assets/demo_2.png", "Selfie Segmentation", () {}, true
-                    // () => Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => BodyPartsDetectionScreen(cameras!),
-                    //   ),
-                    // ),
-                    ),
-                customCard(
-                    "assets/demo_2.png", "On-Device Translation", () {}, true
-                    // () => Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => BodyPartsDetectionScreen(cameras!),
-                    //   ),
-                    // ),
-                    ),
+
               ],
             ),
           )
