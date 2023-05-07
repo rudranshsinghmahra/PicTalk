@@ -8,7 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:pic_talk_app/views/selection_screen_second.dart';
 import 'package:pic_talk_app/views/splash_screen.dart';
 
-List<CameraDescription>? cameras;
+List<CameraDescription> cameras = [];
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
