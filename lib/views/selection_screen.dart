@@ -41,8 +41,8 @@ class _SelectionScreenState extends State<SelectionScreen> {
       print("");
     }
     await flutterTts.setVoice({
-      'name': voices[5]['name'],
-      'locale': voices[5]['locale'],
+      'name': voices[7]['name'],
+      'locale': voices[7]['locale'],
     });
     await flutterTts.speak(
         "Hey! ${widget.name} Welcome to PicTalk. What do you want PicTalk to help you do?");

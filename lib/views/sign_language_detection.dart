@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pic_talk_app/main.dart';
 import 'package:progresso/progresso.dart';
 import 'package:tflite/tflite.dart';
@@ -15,15 +16,19 @@ class _SignLanguageDetectionState extends State<SignLanguageDetection> {
   CameraController? _controller;
   CameraImage? cameraImage;
   String output = '';
+  String modifiedOutput = '';
   double confidence = 0.0;
   bool backCameraSelected = true;
   bool isRunningModel = false;
+  FlutterTts flutterTts = FlutterTts();
+  RegExp regex = RegExp(r'(?<=\s)[A-Za-z\d]');
+
 
   Future<void> _initializeCamera() async {
     cameras = await availableCameras();
-    if (cameras!.isNotEmpty) {
+    if (cameras.isNotEmpty) {
       _controller = CameraController(
-        cameras![0],
+        cameras[0],
         ResolutionPreset.high,
         enableAudio: false,
       );
@@ -65,6 +70,7 @@ class _SignLanguageDetectionState extends State<SignLanguageDetection> {
           setState(() {
             confidence = element['confidence'];
             output = element['label'].toString();
+            modifiedOutput = regex.stringMatch(output).toString();
             isRunningModel = false;
           });
         }
@@ -134,7 +140,7 @@ class _SignLanguageDetectionState extends State<SignLanguageDetection> {
             child: Row(
               children: [
                 Text(
-                  output,
+                  modifiedOutput,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,

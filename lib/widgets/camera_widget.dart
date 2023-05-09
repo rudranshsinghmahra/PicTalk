@@ -55,8 +55,8 @@ class _CameraWidgetForTextToImageState extends State<CameraWidgetForTextToImage>
                   print("");
                 }
                 await flutterTts.setVoice({
-                  'name': voices[5]['name'],
-                  'locale': voices[5]['locale'],
+                  'name': voices[7]['name'],
+                  'locale': voices[7]['locale'],
                 });
                 flutterTts.speak(shownText.toString());
               }
