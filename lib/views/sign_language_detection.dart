@@ -140,7 +140,7 @@ class _SignLanguageDetectionState extends State<SignLanguageDetection> {
             child: Row(
               children: [
                 Text(
-                  modifiedOutput,
+                  "L",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
